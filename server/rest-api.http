@@ -1,0 +1,56 @@
+### Get hello
+GET http://localhost:3000/
+Accept: application/json
+
+### Create product
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+  "name": "Mechanical keyboard",
+  "price": 250
+}
+
+<> 2023-10-14T152554.200.json
+
+### Get all products
+GET http://localhost:3000/api/products
+Content-Type: application/json
+
+<> 2023-10-14T152621.200.json
+<> 2023-10-14T152610.200.json
+<> 2023-10-14T152556.200.json
+
+### Get product 1
+GET http://localhost:3000/api/products/1
+Content-Type: application/json
+
+<> 2023-10-14T152558.200.json
+<> 2023-10-14T152517.200.json
+
+### Get product 999
+GET http://localhost:3000/api/products/999
+Content-Type: application/json
+
+<> 2023-10-14T152602.404.txt
+<> 2023-10-14T152512.404.txt
+
+### Delete product 2
+DELETE http://localhost:3000/api/products/3
+Content-Type: application/json
+
+<> 2023-10-14T152618.200.json
+<> 2023-10-14T152606.200.json
+<> 2023-10-14T152523.200.json
+<> 2023-10-14T152457.200.json
+<> 2023-10-14T152355.200.json
+<> 2023-10-14T152353.200.json
+
+### Update product 1
+PUT http://localhost:3000/api/products/1
+Content-Type: application/json
+
+{
+  "name": "Iphone 15",
+  "price": 1250
+}
