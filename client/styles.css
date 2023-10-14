@@ -1,0 +1,28 @@
+:root {
+    --primary: rgb(249, 148, 23);
+    --light-color: rgb(245, 245, 245);
+    --medium-color: rgb(77, 76, 125);
+    --dark-color:rgb(54, 48, 98);
+}
+
+html, body {
+    padding: 0;
+    margin: 0;
+    background-color: var(--dark-color);
+    color: var(--light-color);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.container {
+    width: 90vw;
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    color: var(--primary);
+    font-size: 2.5em;
+}
