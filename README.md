@@ -58,6 +58,8 @@ cargo add serde
 cargo add serde_json
 cargo add wasm-bindgen-futures
 cargo add reqwest -F json
+cargo add web-sys -F HtmlInputElement
+cargo add gloo-console
 ```
 
 ### Running
