@@ -4,9 +4,14 @@ use serde_json::json;
 use web_sys::HtmlInputElement;
 use yew::platform::spawn_local;
 use yew::prelude::*;
+use yew_router::prelude::*;
+
+use crate::router::Route;
 
 #[function_component]
 pub fn Form() -> Html {
+    let navigator = use_navigator().unwrap();
+
     // name
     let name_ref = NodeRef::default();
     let name_ref_outer = name_ref.clone();
@@ -38,7 +43,8 @@ pub fn Form() -> Html {
                 .send()
                 .await
                 .expect("cannot post data to url");
-        })
+        });
+        navigator.push(&Route::Home)
     });
 
     html! {

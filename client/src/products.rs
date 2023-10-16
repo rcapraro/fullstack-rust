@@ -2,6 +2,9 @@ use gloo_net::http::Request;
 use serde::{Deserialize, Serialize};
 use yew::platform::spawn_local;
 use yew::prelude::*;
+use yew_router::prelude::*;
+
+use crate::router::Route;
 
 #[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct Product {
@@ -46,7 +49,10 @@ pub fn Products() -> Html {
 
     html! {
         <div class="container">
-            <h2>{"List of products: "} {data.len()}{" products"}</h2>
+            <button class="btn-primary">
+                <Link<Route> to={Route::AddProduct}>{ "Add new Product" }</Link<Route>>
+            </button>
+            <h2>{"List of Products: "} {data.len()} </h2>
             <p>{products}</p>
         </div>
     }

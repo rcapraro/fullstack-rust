@@ -57,10 +57,10 @@ cargo add yew -F csr
 ```shell
 cargo add serde
 cargo add serde_json
-cargo add wasm-bindgen-futures
 cargo add reqwest -F json
 cargo add web-sys -F HtmlInputElement
 cargo add gloo-console
+cargo add yew-router
 ```
 
 ### Running
