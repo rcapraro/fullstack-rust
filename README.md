@@ -1,6 +1,6 @@
 # Rust full stack application
 
-This sample project demonstrates a full stack built in Rust.
+This sample project demonstrates a full stack application built in Rust.
 
 It uses [Axum](https://github.com/tokio-rs/axum) for the server-side and [Yew](https://yew.rs)  for the client side.
 
