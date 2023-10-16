@@ -12,9 +12,10 @@ postgres = "0.19.7"
 tokio = { version = "1.33.0", features = ["full"] }
 sqlx = { version = "0.7.2", features = ["runtime-tokio", "postgres", "migrate", "json", "macros", "time", "uuid", "bigdecimal"] }
 tower = "0.4.13"
-tower-http = { version = "0.4.4", features = ["cors"] }
+tower-http = { version = "0.4.4", features = ["full"] }
 tracing = "0.1.37"
 tracing-subscriber = "0.3.17"
 dotenv = "0.15.0"
 serde = "1.0.189"
 serde_json = "1.0.107"
+http = "0.2.9"

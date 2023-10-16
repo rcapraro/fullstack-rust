@@ -1,7 +1,12 @@
-use axum::routing::post;
-use axum::{routing::get, Router};
+use axum::{
+    routing::{get, post},
+    Router,
+};
 use sqlx::postgres::PgPoolOptions;
 use tower_http::cors::{Any, CorsLayer};
+
+use http::header::CONTENT_TYPE;
+use http::Method;
 
 mod handlers;
 
@@ -11,7 +16,10 @@ async fn main() {
     tracing_subscriber::fmt::init();
 
     // cors
-    let cors = CorsLayer::new().allow_origin(Any);
+    let cors = CorsLayer::new()
+        .allow_methods([Method::GET, Method::POST, Method::PUT, Method::DELETE])
+        .allow_origin(Any)
+        .allow_headers([CONTENT_TYPE]);
 
     // add postgres
     dotenv::dotenv().ok();
@@ -29,7 +37,7 @@ async fn main() {
 
     // build our application with a single route
     let app = Router::new()
-        .route("/", get(hello))
+        .route("/hello", get(hello))
         .route("/api/products", post(handlers::create_product))
         .route("/api/products", get(handlers::get_all_products))
         .route(
@@ -41,7 +49,7 @@ async fn main() {
         .with_state(pool)
         .layer(cors);
 
-    tracing::debug!("listening on {}", "0.0.0.0:3000");
+    tracing::info!("listening on {}", "0.0.0.0:3000");
 
     // run it with hyper on localhost:3000
     axum::Server::bind(&"0.0.0.0:3000".parse().unwrap())
@@ -51,5 +59,5 @@ async fn main() {
 }
 
 async fn hello() -> &'static str {
-    "Hello world again!"
+    "Hello world!"
 }

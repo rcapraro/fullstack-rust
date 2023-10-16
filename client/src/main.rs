@@ -1,14 +1,13 @@
 use yew::prelude::*;
 
-mod products;
 mod form;
+mod products;
 
-use products::Products;
 use form::Form;
+use products::Products;
 
 #[function_component]
 fn App() -> Html {
-
     html! {
         <div class="container">
             <h1 class= "title">{"Yew Product App"}</h1>

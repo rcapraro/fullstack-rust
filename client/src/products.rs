@@ -1,7 +1,9 @@
+use gloo_net::http::Request;
 use serde::{Deserialize, Serialize};
+use wasm_bindgen_futures::spawn_local;
 use yew::prelude::*;
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, PartialEq)]
 pub struct Product {
     id: i32,
     name: String,
@@ -10,20 +12,25 @@ pub struct Product {
 
 #[function_component]
 pub fn Products() -> Html {
-    let data: UseStateHandle<Vec<Product>> = use_state(|| vec![]);
+    let data: UseStateHandle<Vec<Product>> = use_state(Vec::new);
     {
         let data_clone = data.clone();
-        use_effect(move || {
-            wasm_bindgen_futures::spawn_local(async move {
-                let fetched_data = reqwest::get("http://localhost:3000/api/products")
-                    .await
-                    .expect("cannot get data from url")
-                    .json::<Vec<Product>>()
-                    .await
-                    .expect("cannot convert to json");
+        let deps: Vec<Product> = vec![];
 
-                data_clone.set(fetched_data);
-            });
+        use_effect_with(deps, move |deps| {
+            if deps.is_empty() {
+                spawn_local(async move {
+                    let fetched_data = Request::get("http://localhost:3000/api/products")
+                        .send()
+                        .await
+                        .expect("cannot get data from url")
+                        .json::<Vec<Product>>()
+                        .await
+                        .expect("cannot convert to json");
+
+                    data_clone.set(fetched_data);
+                });
+            }
             || () // no destructor to run
         });
     }

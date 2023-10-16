@@ -18,7 +18,8 @@ cargo add serde_json
 cargo add dotenv
 cargo add sqlx -F sqlx/runtime-tokio, postgres, migrate, json, macros
 cargo add tower
-cargo add tower-http -F cors
+cargo add tower-http -F full
+cargo add http
 ```
 
 ### Watch

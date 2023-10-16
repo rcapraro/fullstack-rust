@@ -1,9 +1,12 @@
-use axum::extract::{Path, State};
-use axum::http::StatusCode;
-use axum::Json;
+use axum::{
+    extract::{Path, State},
+    http::StatusCode,
+    Json,
+};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use sqlx::PgPool;
+use tracing::info;
 
 #[derive(Serialize, Deserialize, sqlx::FromRow)]
 pub struct Product {
@@ -22,6 +25,7 @@ pub async fn create_product(
     State(pool): State<PgPool>,
     Json(product): Json<NewProduct>,
 ) -> Result<Json<NewProduct>, (StatusCode, String)> {
+    info!(product.name, product.price, "inserting new product with");
     sqlx::query("insert into products (name, price) values ($1, $2)")
         .bind(&product.name)
         .bind(product.price)
@@ -40,6 +44,7 @@ pub async fn create_product(
 pub async fn get_all_products(
     State(pool): State<PgPool>,
 ) -> Result<Json<Vec<Product>>, (StatusCode, String)> {
+    info!("getting all products");
     let result = sqlx::query_as("select * from products")
         .fetch_all(&pool)
         .await
@@ -57,6 +62,7 @@ pub async fn get_one_product(
     State(pool): State<PgPool>,
     Path(id): Path<i32>,
 ) -> Result<Json<Product>, (StatusCode, String)> {
+    info!(id, "getting product by");
     let result = sqlx::query_as("select id, name, price from products where id=$1")
         .bind(id)
         .fetch_one(&pool)
@@ -76,6 +82,7 @@ pub async fn delete_product(
     State(pool): State<PgPool>,
     Path(id): Path<i32>,
 ) -> Result<Json<Value>, (StatusCode, String)> {
+    info!(id, "deleting product with");
     sqlx::query("delete from products where id=$1")
         .bind(id)
         .execute(&pool)
@@ -98,6 +105,7 @@ pub async fn update_product(
     Path(id): Path<i32>,
     Json(product): Json<NewProduct>,
 ) -> Result<Json<Value>, (StatusCode, String)> {
+    info!(id, "updating product with");
     sqlx::query("update products set name=$1, price=$2 where id=$3")
         .bind(&product.name)
         .bind(product.price)
