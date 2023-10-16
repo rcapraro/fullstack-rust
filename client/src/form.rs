@@ -1,8 +1,8 @@
 use gloo_console::log;
 use gloo_net::http::Request;
 use serde_json::json;
-use wasm_bindgen_futures::spawn_local;
 use web_sys::HtmlInputElement;
+use yew::platform::spawn_local;
 use yew::prelude::*;
 
 #[function_component]
