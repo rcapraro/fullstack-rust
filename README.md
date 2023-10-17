@@ -1,4 +1,5 @@
 # Rust full stack application
+![build](https://github.com/rcapraro/fullstack-rust/actions/workflows/rust.yml/badge.svg)
 
 This sample project demonstrates a full stack application built in Rust.
 
